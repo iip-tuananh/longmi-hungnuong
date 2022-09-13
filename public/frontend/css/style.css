@@ -1,0 +1,77 @@
+/*
+Theme Name: Flatsome Child
+Description: This is a child theme for Flatsome Theme
+Author: UX Themes
+Template: flatsome
+Version: 3.0
+*/
+
+/*************** ADD CUSTOM CSS HERE.   ***************/
+
+
+/*************** For Product Page variations.   ***************/
+table tr:nth-child(even) td {
+    background: transparent !important;
+    text-transform: capitalize !important;
+    color: #000;
+}
+table tr:nth-child(odd) td {
+    background: transparent !important;
+    text-transform: capitalize !important;
+    color: #000;
+}
+.sidebar-inner span.widget-title.shop-sidebar, .shop-sidebar span.widget-title{
+    background: #f7f7f7;
+    width: calc(100% + 30px);
+    display: block;
+    padding: 7px;
+    margin: 0 -15px;
+}
+.sidebar-inner .widget, .shop-sidebar .widget {
+    border: 1px solid;
+    padding: 0 15px;
+    overflow: hidden;
+}
+.woocommerce-cart td, .woocommerce-checkout td {
+    border: none;
+}
+.payment_box.payment_method_cod p {
+    color: #000;
+}
+.fa-check-circle:before {
+    content: "\f058";
+    color: #58c649;
+}
+.button.disabled {
+    cursor: not-allowed;
+}
+input.is-form.expand {
+    background: #000;
+    color: #fff;
+    text-shadow: none;
+}
+button.single_add_to_cart_button:hover, button#place_order:hover, 
+a.checkout-button.wc-forward:hover, input.is-form.expand {
+    background-color: #d89654 !important;
+}
+.social-b.whatsapp h6 {
+    line-height: normal !important;
+}
+.social-b.whatsapp img {
+    padding-top: 0;
+    margin-top: -6px;
+}
+@media only screen and (max-width: 48em) {
+/*************** ADD MOBILE ONLY CSS HERE  ***************/
+
+
+}
+.su-table td {
+    padding-left: 10px;
+}
+.menu-item-9076 > a, .menu-item-9082 > a, .menu-item-9085 > a {
+    pointer-events: none !important;
+}
+select#gtranslate_selector {
+    min-width: 125px;
+}
