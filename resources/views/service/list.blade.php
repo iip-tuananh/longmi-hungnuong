@@ -12,48 +12,33 @@
 @endsection
 @section('content')
 <main id="main" class="">
-<div id="content" class="blog-wrapper blog-archive page-wrapper">
-    <header class="archive-page-header">
-        <div class="row">
-            <div class="large-12 text-center col">
-            <h1 class="page-title is-large uppercase" align="left">
-                <span>{{$title_page}}</span>	
-            </h1>
-            </div>
-        </div>
-    </header>
-    <div class="row row-large row-divided ">
-        <div class="large-9 col">
-            <div class="row large-columns-3 medium-columns- small-columns-1">
-            @foreach ($services as $service)
-                <div class="col post-item" >
-                    <div class="col-inner">
-                        <a href="{{route('serviceDetail', ['slug'=>$service->slug])}}" class="plain">
-                        <div class="box box-text-bottom box-blog-post has-hover">
-                            <div class="box-image" >
-                                <div class="image-cover" style="padding-top:56%;">
-                                    <img width="600" height="375" src="{{$service->image}}" class="attachment-medium size-medium wp-post-image" alt="{{$service->name}}" loading="lazy" />  							  							  						
-                                </div>
-                            </div>
-                            <div class="box-text text-left" >
-                                <div class="box-text-inner blog-post-inner">
-                                    <h5 class="post-title is-large ">{{$service->name}}</h5>
-                                    <div class="is-divider"></div>
-                                    <p class="from_the_blog_excerpt ">{!!languageName($service->description)!!}</p>
-                                </div>
+    <div id="content" class="content-area page-wrapper" role="main">
+    <div class="row row-main">
+        <div class="large-12 col">
+            <div class="col-inner">
+                <div class="container section-title-container" >
+                <h3 class="section-title section-title-normal"><b></b><span class="section-title-main" >Frequently asked questions about HUNGNUONG EYELASH CO.,LTD</span><b></b></h3>
+                </div>
+                <div class="accordion" rel="1">
+                    @foreach ($services as $item)
+                        <div class="accordion-item">
+                            <a href="#" class="accordion-title plain"><button class="toggle"><i class="icon-angle-down"></i></button><span>{{$item->name}}</span></a>
+                            <div class="accordion-inner">
+                                {!!languageName($item->content)!!}
                             </div>
                         </div>
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
-            @endforeach
-            </div>
-            <div class="paginate">
-                {{$services->links()}}
+                <div id="gap-1863080607" class="gap-element clearfix" style="display:block; height:auto;">
+                <style>
+                    #gap-1863080607 {
+                    padding-top: 30px;
+                    }
+                </style>
+                </div>
             </div>
         </div>
-        @include('layouts.main.rightnav-page')
     </div>
-</div>
+    </div>
 </main>
 @endsection

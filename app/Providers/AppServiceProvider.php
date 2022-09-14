@@ -80,6 +80,7 @@ class AppServiceProvider extends ServiceProvider
                 'status'=>1, 'home_status'=>1
             ])->orderBy('id','DESC')->get(['id','title','slug','image','description']);
             $hotProduct = Product::where(['status'=>1, 'discountStatus'=>1])->limit(8)->get(['id', 'name', 'cate_slug', 'slug', 'price', 'images']);
+            $helpCustomer = PageContent::where(['status'=>1, 'type'=>'ho-tro-khach-hang', 'language'=>'vi'])->get();
             $view->with([
                 'promotio' => $promotio,
                 'setting' => $setting,
@@ -94,7 +95,8 @@ class AppServiceProvider extends ServiceProvider
                 'servicehome'=>$servicehome,
                 'hotBlogs'=>$hotBlogs,
                 'hotProduct'=>$hotProduct,
-                'typeProduct'=>$typeProduct
+                'typeProduct'=>$typeProduct,
+                'helpCustomer'=>$helpCustomer
                 ]);    
         });  
     }

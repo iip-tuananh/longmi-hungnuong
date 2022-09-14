@@ -4,7 +4,7 @@ $imgs = json_decode($product['images']);
 $discountPrice = $product['price'] - $product['price'] * ($product['discount'] / 100);
 @endphp
 <div class="product-small col has-hover product type-product post-659 status-publish instock product_cat-volume-eyelash-extensions product_tag-extensions product_tag-silk product_tag-silk-lash has-post-thumbnail shipping-taxable purchasable product-type-variable has-default-attributes wvs-pro-product wvs-pro-after-cart-button">
-   <div class="col-inner">
+   <div class="col-inner variations_form" data-url="{{route('addToCart')}}">
       <div class="badge-container absolute left top z-1"></div>
       <div class="product-small box ">
          <div class="box-image">
@@ -51,7 +51,10 @@ $discountPrice = $product['price'] - $product['price'] * ($product['discount'] /
                </span>
                </div>
                <div class="add-to-cart-button">
-                  <div class="add-to-cart-button"><a href="" class="primary is-small mb-0 product_type_simple add_to_cart_button ajax_add_to_cart button primary is-flat mb-0 is-small is-flat" data-product_id="9579" data-product_sku="" data-quantity="1" rel="nofollow">Add to cart</a></div>
+                  <div class="add-to-cart-button">
+                     <a href="javacript:void(0);" class="primary is-small mb-0 product_type_simple add_to_cart_button ajax_add_to_cart button primary is-flat mb-0 is-small is-flat add_to_cart" rel="nofollow">Add to cart</a>
+                     <input type="hidden" name="product_id" value="{{$product->id}}" />
+                  </div>
                </div>
          </div>
       </div>

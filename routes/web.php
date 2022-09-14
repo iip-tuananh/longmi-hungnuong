@@ -35,9 +35,9 @@ Route::group(['namespace'=>'Client','middleware' => ['checkLanguage']], function
     Route::post('dang-ky.html','AuthController@postRegister')->name('postRegister');
     Route::get('dang-xuat.html','AuthController@logout')->name('logout')->middleware('CheckAuthClient::class');
 
-    Route::get('trang-noi-dung/{slug}.html','PageContentController@detail')->name('pagecontent');
+    Route::get('help-customer/{slug}.html','PageContentController@detail')->name('pagecontent');
     Route::get('chinh-sach-phan-phoi/{slug}.html','PageController@serviceDetail')->name('serviceDetail');
-    Route::get('tat-ca-dich-vu.html','PageController@listService')->name('listService');
+    Route::get('FAQ.html','PageController@listService')->name('listService');
     Route::get('about-us.html','PageController@aboutUs')->name('aboutUs');  
     Route::get('cong-nghe.html','PageController@technology')->name('technology');   
     Route::get('contact.html','PageController@contact')->name('lienHe');
@@ -50,11 +50,11 @@ Route::group(['namespace'=>'Client','middleware' => ['checkLanguage']], function
     Route::get('quickview/{id}','PageController@quickview')->name('quickview');
     Route::get('nhan-bao-gia.html','PageController@baogia')->name('baogia');
 
-    Route::get('gio-hang.html', 'CartController@listCart')->name('listCart');
+    Route::get('list-cart.html', 'CartController@listCart')->name('listCart');
     Route::post('add-to-cart', 'CartController@addToCart')->name('addToCart');
     Route::get('update-cart', 'CartController@update')->name('updateCart');
     Route::get('remove-from-cart', 'CartController@remove')->name('removeCart');
-    Route::get('thanh-toan.html','CartController@checkout')->name('checkout');
+    Route::get('checkout.html','CartController@checkout')->name('checkout');
     Route::post('thantoan','CartController@postBill')->name('postBill');
 
     Route::get('dat-ban.html','PageController@orderNow')->name('orderNow');

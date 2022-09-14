@@ -51,7 +51,7 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label>Số điện thoại kĩ thuật</label>
+                  <label>Số điện thoại 1</label>
                   <vs-input
                     type="text"
                     size="default"
@@ -60,7 +60,7 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label>Số điện thoại tư vấn</label>
+                  <label>Số điện thoại 2</label>
                   <vs-input
                     type="text"
                     size="default"
@@ -96,7 +96,7 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label>Link Shopee</label>
+                  <label>Instagram</label>
                   <vs-input
                     type="text"
                     size="default"
@@ -105,12 +105,21 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label>Code Google analytics</label>
+                  <label>Twitter</label>
                   <vs-input
                     type="text"
                     size="default"
                     class="w-100"
                     v-model="objData.GA"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Linkedin</label>
+                  <vs-input
+                    type="text"
+                    size="default"
+                    class="w-100"
+                    v-model="objData.fbPixel"
                   />
                 </div>
                 <div class="form-group">
@@ -130,11 +139,11 @@
                   <label>Logo</label>
                   <image-upload type="avatar" v-model="objData.logo" :title="'logo'"></image-upload>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label>Ảnh Popup</label>
                   <image-upload type="avatar" v-model="objData.popupimage" :title="'popupimage'"></image-upload>
-                </div>
-                <div class="form-group">
+                </div> -->
+                <!-- <div class="form-group">
                   <label>Link Popup</label>
                   <vs-input
                     type="text"
@@ -142,15 +151,15 @@
                     class="w-100"
                     v-model="objData.linkpopup"
                   />
-                </div>
-                <div class="form-group">
+                </div> -->
+                <!-- <div class="form-group">
                   <label>Trạng thái hiển thị popup</label>
                   <vs-select v-model="objData.statusPopup"
                   >
                       <vs-select-item  value="1" text="Hiện" />
                       <vs-select-item  value="0" text="Ẩn" />
                     </vs-select>
-                </div>
+                </div> -->
               <vs-button color="primary" @click="saveSetting">Lưu</vs-button>
             </div>
           </div>

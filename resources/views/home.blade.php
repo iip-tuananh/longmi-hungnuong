@@ -845,7 +845,7 @@
                            </div>
                            <div class="box-text text-center" >
                            <div class="box-text-inner blog-post-inner">
-                              <h5 class="post-title is-large ">{{languageName($blog->title)}}</h5>
+                              <h5 class="post-title is-large desc">{{languageName($blog->title)}}</h5>
                               <div class="is-divider"></div>
                               <p class="from_the_blog_excerpt desc">{{languageName($blog->description)}}</p>
                               <button href="{{route('detailBlog', ['slug'=>$blog->slug])}}" class="button primary is-gloss is-small mb-0">

@@ -72,7 +72,10 @@ class CartController extends Controller
         if (isset($request->quantity)) {
             if(isset($cart[$id])) {
                 $cart[$id]['quantity'] = $cart[$id]['quantity'] + $request->quantity;
-                $cart[$id]['color'] = $request->color;
+                $cart[$id]['curl'] = $request->curl;
+                $cart[$id]['length'] = $request->length;
+                $cart[$id]['line'] = $request->line;
+                $cart[$id]['thickness'] = $request->thickness;
             } else {
                 $cart[$id] = [
                     "id" => $product->id,
@@ -84,12 +87,19 @@ class CartController extends Controller
                     "type_slug" => $product->type_slug,
                     "slug"=>$product->slug,
                     "image" => json_decode($product->images)[0],
+                    "curl" => $request->curl,
+                    "length" => $request->length,
+                    "line" => $request->line,
+                    "thickness" => $request->thickness
                 ];
             }
         } else {
             if(isset($cart[$id])) {
                 $cart[$id]['quantity'] = $cart[$id]['quantity'] + 1;
-                $cart[$id]['color'] = $request->color;
+                $cart[$id]['curl'] = $request->curl;
+                $cart[$id]['length'] = $request->length;
+                $cart[$id]['line'] = $request->line;
+                $cart[$id]['thickness'] = $request->thickness;
             } else {
                 $cart[$id] = [
                     "id" => $product->id,
@@ -101,6 +111,10 @@ class CartController extends Controller
                     "type_slug" => $product->type_slug,
                     "slug"=>$product->slug,
                     "image" => json_decode($product->images)[0],
+                    "curl" => $request->curl,
+                    "length" => $request->length,
+                    "line" => $request->line,
+                    "thickness" => $request->thickness
                 ];
             }
         }

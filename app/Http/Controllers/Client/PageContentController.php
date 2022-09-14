@@ -12,7 +12,7 @@ class PageContentController extends Controller
     public function detail($slug)
     {
     	$language_current = Session::get('locale');
-    	$data['pagecontentdetail'] = PageContent::where(['language'=>$language_current,'slug'=>$slug])->first();
+    	$data['pagecontentdetail'] = PageContent::where(['language'=>'vi','slug'=>$slug, 'status'=>1])->first();
     	return view('pageContent',$data);
     }
 }

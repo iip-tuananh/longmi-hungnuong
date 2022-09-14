@@ -21,7 +21,7 @@ class BlogController extends Controller
         ->select(['id','title','image','description','created_at','slug','category'])
         ->paginate(12);
         $data['news'] = Blog::where(['status'=>1, 'home_status'=>1])->orderBy('id', 'desc')->limit(10)->get(['id', 'title', 'slug', 'image']);
-        $data['title_page'] = 'Tất cả tin tức';
+        $data['title_page'] = 'All Blogs';
         $data['categoryBlog'] = BlogCategory::with([
             'listBlog' => function ($query){
                 $query->where(['status'=>1])->paginate(10);

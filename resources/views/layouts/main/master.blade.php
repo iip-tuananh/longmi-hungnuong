@@ -90,11 +90,157 @@
          <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
          <script type='text/javascript' src='{{asset('frontend/js/jquery.min.js')}}' id='jquery-core-js'></script>
          <script type='text/javascript' src='{{asset('frontend/js/jquery-migrate.min.js')}}' id='jquery-migrate-js'></script>
+         <script type='text/javascript' src='{{asset('frontend/js/notify.min.js')}}' id='notify-js'></script>
+         <script>
+            $(document).ready(function(){
+               $('.button-variable-item').on('click', function(e) {
+                  e.preventDefault();
+                  $('.button-variable-item').removeClass('selected');
+                  $(this).addClass('selected');
+               })
+               $('.add_to_cart').click(function(e) {
+                  e.preventDefault();
+                  let curl = $('.button-variable-item.selected').data('value');
+                  let id = $(this).parent().find('input[name=product_id]').val();
+                  let quantity = $('input[name=quantity]').val();
+                  let line = $('input[name=line]:checked').val();
+                  let length = $('select[name=length] :selected').val();
+                  let thickness = $('select[name=thickness] :selected').val();
+                  let url = $('.variations_form').data('url');
+                  console.log(id);
+                  $.ajax({
+                     type: 'post',
+                     url : url,
+                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                     data : {
+                        id : id,
+                        quantity :quantity,
+                        curl : curl,
+                        line : line,
+                        length: length,
+                        thickness: thickness
+                     },
+                     success: function(data) {
+                        $.notify("Thêm vào giỏ hàng thành công!", "success");
+                        let cart = data;
+                        let countCart = Object.keys(data).length;
+                        let totalPrice = 0;
+                        let html = '';
+                        $.each(cart , function (index, value){
+                           html += '<li class="woocommerce-mini-cart-item mini_cart_item">';
+                           html += '<a href="javascript:void(0);" class="remove remove_from_cart_button" onclick="removeItem('+value.id+')">×</a>';											
+                           html += '<a href="#">';                      
+                           html += '<img width="300" height="300" src="'+value.image+'" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wvs-attachment-image" alt="'+JSON.parse(value.name)[0].content+'" loading="lazy" srcset="'+value.image+' 300w, '+value.image+' 400w, '+value.image+' 799w, '+value.image+' 280w, '+value.image+' 768w, '+value.image+' 600w, '+value.image+' 100w, '+value.image+' 1279w" sizes="(max-width: 300px) 100vw, 300px">'+JSON.parse(value.name)[0].content+'</a>'  ;                      
+                           html += '<span class="quantity">'+value.quantity+' × <span class="woocommerce-Price-amount amount">';
+                           html += '<bdi>';
+                           html += '<span class="woocommerce-Price-currencySymbol">$</span>';   
+                           html += value.price - value.price * (value.discount / 100);
+                           html += '</bdi>';   
+                           html += '</span></span>' ;                       				
+                           html += '</li>';  
+                           totalPrice += (value.price - value.price * (value.discount / 100)) * value.quantity;
+                        })
+                        $('.cart_list').html(html);
+                        $('#total-price').html(totalPrice);
+                        $('.header-cart-link').html('<i class="icon-shopping-basket" data-icon-label="'+countCart+'"></i>');
+                     },
+                     error: function(data) {
+                        $.notify("Thêm vào giỏ hàng thất bại!", "error");
+                     }
+                  })
+               })
+            });
+            function removeItem(e) {
+               var id = e;
+               var url = $('.cart-item').data('url');
+               $.ajax({
+                  type: 'get',
+                  url: url,
+                  data: {id :id},
+                  success: function(data) {
+                     $.notify("Xóa thành công!", "success");
+                     let cart = data;
+                     let countCart = Object.keys(data).length;
+                     let totalPrice = 0;
+                     let html = '';
+                     let html2 = '';
+                     $.each(cart , function (index, value){
+                           html += '<li class="woocommerce-mini-cart-item mini_cart_item">';
+                           html += '<a href="javascript:void(0);" class="remove remove_from_cart_button" onclick="removeItem('+value.id+')">×</a>';											
+                           html += '<a href="#">';                      
+                           html += '<img width="300" height="300" src="'+value.image+'" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wvs-attachment-image" alt="'+JSON.parse(value.name)[0].content+'" loading="lazy" srcset="'+value.image+' 300w, '+value.image+' 400w, '+value.image+' 799w, '+value.image+' 280w, '+value.image+' 768w, '+value.image+' 600w, '+value.image+' 100w, '+value.image+' 1279w" sizes="(max-width: 300px) 100vw, 300px">'+JSON.parse(value.name)[0].content+'</a>'  ;                      
+                           html += '<span class="quantity">'+value.quantity+' × <span class="woocommerce-Price-amount amount">';
+                           html += '<bdi>';
+                           html += '<span class="woocommerce-Price-currencySymbol">$</span>';   
+                           html += value.price - value.price * (value.discount / 100);
+                           html += '</bdi>';   
+                           html += '</span></span>' ;                       				
+                           html += '</li>';  
+                           html2 += '<tr class="woocommerce-cart-form__cart-item cart_item">'; 
+                           html2 += '<td class="product-remove">';   
+                           html2 += '<a href="javascript:void(0);" class="remove" aria-label="Remove this item" onclick="removeItem('+value.id+')">&times;</a>';      						
+                           html2 += '</td>' ;  
+                           html2 += '<td class="product-thumbnail">';   
+                           html2 += '<a href="#">'      
+                           html2 += '<img width="300" height="300" src="'+value.image+'" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wvs-attachment-image" alt="'+JSON.parse(value.name)[0].content+'" loading="lazy" srcset="'+value.image+' 300w, '+value.image+' 400w, '+value.image+' 799w, '+value.image+' 280w, '+value.image+' 768w, '+value.image+' 600w, '+value.image+' 100w, '+value.image+' 1279w" sizes="(max-width: 300px) 100vw, 300px" />';
+                           html2 += '</a>' ;  						
+                           html2 += '</td>';   
+                           html2 += '<td class="product-name" data-title="Product">';   
+                           html2 += '<a href="#">'+JSON.parse(value.name)[0].content+'</a>';     							
+                           html2 += '<div class="show-for-small mobile-product-price">';      
+                           html2 += '<span class="mobile-product-price__qty">'+value.quantity+' x </span>';         
+                           html2 += '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>';
+                           html2 += value.price - value.price * (value.discount / 100);
+                           html2 += '</bdi></span>' ;        							
+                           html2 += '</div>' ;     
+                           html2 += '</td>';   
+                           html2 += '<td class="product-price" data-title="Price">';   
+                           html2 += '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>';
+                           html2 +=  value.price - value.price * (value.discount / 100);
+                           html2 += '</bdi></span>';						
+                           html2 += '</td>' ;  
+                           html2 += '<td class="product-quantity" data-title="Quantity">';   
+                           html2 += '<div class="quantity buttons_added">';      
+                           html2 += '<input type="button" value="-" class="minus button is-form" onclick="btnMinusDes('+value.id+')">';         
+                           html2 += '<input type="number" id="qtyItem'+value.id+'" class="input-text qty text" step="1" min="0" max="" name="cart[aa677d660eefd1fe0d323c1dc9bfa869][qty]" value="'+value.quantity+'" title="Qty" size="4" placeholder="" inputmode="numeric" />' ;        
+                           html2 += '<input type="button" value="+" class="plus button is-form" onclick="btnPlusDes('+value.id+')">';         	
+                           html2 += '</div>';      
+                           html2 += '</td>' ;  
+                           html2 += '<td class="product-subtotal" data-title="Subtotal">' ;  
+                           html2 += '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>';
+                           html2 += '<span id="totalPrice-'+value.id+'">';
+                           html2 += (value.price - value.price * (value.discount / 100)) * value.quantity;
+                           html2 += '</span>';
+                           html2 += '</bdi></span>' ;     						
+                           html2 += '</td>' ;  
+                           html2 += '</tr>';
+                           html2 += '<tr>';
+                           html2 += '<td colspan="6" class="actions clear">';   
+                           html2 += '<div class="continue-shopping pull-left text-left">';      
+                           html2 += '<a class="button-continue-shopping button primary is-outline"  href="{{route("home")}}">&#8592;&nbsp;Continue shopping	</a>';         
+                           html2 += '</div>';      
+                           html2 += '<a href="{{route("checkout")}}" class="button primary mt-0 pull-left small">Checkout</a>';      				
+                           html2 += '</td>';   
+                           html2 += '</tr>';
+                           totalPrice += (value.price - value.price * (value.discount / 100)) * value.quantity;
+                        })
+                     $('.cart_list').html(html);
+                     $('.cart_list_shopping_cart').html(html2);
+                     $('#total-price').html(totalPrice);
+                     $('.header-cart-link').html('<i class="icon-shopping-basket" data-icon-label="'+countCart+'"></i>');
+                  },
+                  error: function(data) {
+                     $.notify("Xóa thất bại!", "error");
+                  }
+               })
+            }
+         </script>
+         @yield('js')
          <style>.bg{opacity: 0; transition: opacity 1s; -webkit-transition: opacity 1s;} .bg-loaded{opacity: 1;}</style>
          <noscript>
          <style>.woocommerce-product-gallery{ opacity: 1 !important; }</style>
          </noscript>
-         <style id="custom-css" type="text/css">:root {--primary-color: #d89654;}.header-main{height: 76px}#logo img{max-height: 76px}#logo{width:200px;}.header-bottom{min-height: 33px}.header-top{min-height: 30px}.transparent .header-main{height: 90px}.transparent #logo img{max-height: 90px}.has-transparent + .page-title:first-of-type,.has-transparent + #main > .page-title,.has-transparent + #main > div > .page-title,.has-transparent + #main .page-header-wrapper:first-of-type .page-title{padding-top: 170px;}.header.show-on-scroll,.stuck .header-main{height:70px!important}.stuck #logo img{max-height: 70px!important}.search-form{ width: 93%;}.header-bottom {background-color: #ffffff}.header-bottom-nav > li > a{line-height: 47px }@media (max-width: 549px) {.header-main{height: 70px}#logo img{max-height: 70px}}.nav-dropdown-has-arrow.nav-dropdown-has-border li.has-dropdown:before{border-bottom-color: #FFFFFF;}.nav .nav-dropdown{border-color: #FFFFFF }.nav-dropdown-has-arrow li.has-dropdown:after{border-bottom-color: #FFFFFF;}.nav .nav-dropdown{background-color: #FFFFFF}.header-top{background-color:#F7F7F7!important;}/* Color */.accordion-title.active, .has-icon-bg .icon .icon-inner,.logo a, .primary.is-underline, .primary.is-link, .badge-outline .badge-inner, .nav-outline > li.active> a,.nav-outline >li.active > a, .cart-icon strong,[data-color='primary'], .is-outline.primary{color: #d89654;}/* Color !important */[data-text-color="primary"]{color: #d89654!important;}/* Background Color */[data-text-bg="primary"]{background-color: #d89654;}/* Background */.scroll-to-bullets a,.featured-title, .label-new.menu-item > a:after, .nav-pagination > li > .current,.nav-pagination > li > span:hover,.nav-pagination > li > a:hover,.has-hover:hover .badge-outline .badge-inner,button[type="submit"], .button.wc-forward:not(.checkout):not(.checkout-button), .button.submit-button, .button.primary:not(.is-outline),.featured-table .title,.is-outline:hover, .has-icon:hover .icon-label,.nav-dropdown-bold .nav-column li > a:hover, .nav-dropdown.nav-dropdown-bold > li > a:hover, .nav-dropdown-bold.dark .nav-column li > a:hover, .nav-dropdown.nav-dropdown-bold.dark > li > a:hover, .is-outline:hover, .tagcloud a:hover,.grid-tools a, input[type='submit']:not(.is-form), .box-badge:hover .box-text, input.button.alt,.nav-box > li > a:hover,.nav-box > li.active > a,.nav-pills > li.active > a ,.current-dropdown .cart-icon strong, .cart-icon:hover strong, .nav-line-bottom > li > a:before, .nav-line-grow > li > a:before, .nav-line > li > a:before,.banner, .header-top, .slider-nav-circle .flickity-prev-next-button:hover svg, .slider-nav-circle .flickity-prev-next-button:hover .arrow, .primary.is-outline:hover, .button.primary:not(.is-outline), input[type='submit'].primary, input[type='submit'].primary, input[type='reset'].button, input[type='button'].primary, .badge-inner{background-color: #d89654;}/* Border */.nav-vertical.nav-tabs > li.active > a,.scroll-to-bullets a.active,.nav-pagination > li > .current,.nav-pagination > li > span:hover,.nav-pagination > li > a:hover,.has-hover:hover .badge-outline .badge-inner,.accordion-title.active,.featured-table,.is-outline:hover, .tagcloud a:hover,blockquote, .has-border, .cart-icon strong:after,.cart-icon strong,.blockUI:before, .processing:before,.loading-spin, .slider-nav-circle .flickity-prev-next-button:hover svg, .slider-nav-circle .flickity-prev-next-button:hover .arrow, .primary.is-outline:hover{border-color: #d89654}.nav-tabs > li.active > a{border-top-color: #d89654}.widget_shopping_cart_content .blockUI.blockOverlay:before { border-left-color: #d89654 }.woocommerce-checkout-review-order .blockUI.blockOverlay:before { border-left-color: #d89654 }/* Fill */.slider .flickity-prev-next-button:hover svg,.slider .flickity-prev-next-button:hover .arrow{fill: #d89654;}/* Background Color */[data-icon-label]:after, .secondary.is-underline:hover,.secondary.is-outline:hover,.icon-label,.button.secondary:not(.is-outline),.button.alt:not(.is-outline), .badge-inner.on-sale, .button.checkout, .single_add_to_cart_button, .current .breadcrumb-step{ background-color:rgba(226,43,76,0.33); }[data-text-bg="secondary"]{background-color: rgba(226,43,76,0.33);}/* Color */.secondary.is-underline,.secondary.is-link, .secondary.is-outline,.stars a.active, .star-rating:before, .woocommerce-page .star-rating:before,.star-rating span:before, .color-secondary{color: rgba(226,43,76,0.33)}/* Color !important */[data-text-color="secondary"]{color: rgba(226,43,76,0.33)!important;}/* Border */.secondary.is-outline:hover{border-color:rgba(226,43,76,0.33)}body{font-size: 100%;}body{font-family:"Quicksand", sans-serif}body{font-weight: 0}body{color: #000000}.nav > li > a {font-family:"Quicksand", sans-serif;}.mobile-sidebar-levels-2 .nav > li > ul > li > a {font-family:"Quicksand", sans-serif;}.nav > li > a {font-weight: 700;}.mobile-sidebar-levels-2 .nav > li > ul > li > a {font-weight: 700;}h1,h2,h3,h4,h5,h6,.heading-font, .off-canvas-center .nav-sidebar.nav-vertical > li > a{font-family: "Quicksand", sans-serif;}h1,h2,h3,h4,h5,h6,.heading-font,.banner h1,.banner h2{font-weight: 700;}h1,h2,h3,h4,h5,h6,.heading-font{color: #000000;}.alt-font{font-family: "Dancing Script", sans-serif;}.alt-font{font-weight: 400!important;}.header:not(.transparent) .header-bottom-nav.nav > li > a{color: #000000;}.current .breadcrumb-step, [data-icon-label]:after, .button#place_order,.button.checkout,.checkout-button,.single_add_to_cart_button.button{background-color: #000000!important }@media screen and (min-width: 550px){.products .box-vertical .box-image{min-width: 300px!important;width: 300px!important;}}.footer-2{background-color: #0a0a0a}.absolute-footer, html{background-color: #0a0a0a}.label-new.menu-item > a:after{content:"New";}.label-hot.menu-item > a:after{content:"Hot";}.label-sale.menu-item > a:after{content:"Sale";}.label-popular.menu-item > a:after{content:"Popular";}</style>
+         <style id="custom-css" type="text/css">:root {--primary-color: #d89654;}.header-main{height: 76px}#logo img{max-height: 76px}#logo{width:200px;}.header-bottom{min-height: 33px}.header-top{min-height: 50px}.transparent .header-main{height: 90px}.transparent #logo img{max-height: 90px}.has-transparent + .page-title:first-of-type,.has-transparent + #main > .page-title,.has-transparent + #main > div > .page-title,.has-transparent + #main .page-header-wrapper:first-of-type .page-title{padding-top: 170px;}.header.show-on-scroll,.stuck .header-main{height:70px!important}.stuck #logo img{max-height: 70px!important}.search-form{ width: 93%;}.header-bottom {background-color: #ffffff}.header-bottom-nav > li > a{line-height: 47px }@media (max-width: 549px) {.header-main{height: 70px}#logo img{max-height: 70px}}.nav-dropdown-has-arrow.nav-dropdown-has-border li.has-dropdown:before{border-bottom-color: #FFFFFF;}.nav .nav-dropdown{border-color: #FFFFFF }.nav-dropdown-has-arrow li.has-dropdown:after{border-bottom-color: #FFFFFF;}.nav .nav-dropdown{background-color: #FFFFFF}.header-top{background-color:#F7F7F7!important;}/* Color */.accordion-title.active, .has-icon-bg .icon .icon-inner,.logo a, .primary.is-underline, .primary.is-link, .badge-outline .badge-inner, .nav-outline > li.active> a,.nav-outline >li.active > a, .cart-icon strong,[data-color='primary'], .is-outline.primary{color: #d89654;}/* Color !important */[data-text-color="primary"]{color: #d89654!important;}/* Background Color */[data-text-bg="primary"]{background-color: #d89654;}/* Background */.scroll-to-bullets a,.featured-title, .label-new.menu-item > a:after, .nav-pagination > li > .current,.nav-pagination > li > span:hover,.nav-pagination > li > a:hover,.has-hover:hover .badge-outline .badge-inner,button[type="submit"], .button.wc-forward:not(.checkout):not(.checkout-button), .button.submit-button, .button.primary:not(.is-outline),.featured-table .title,.is-outline:hover, .has-icon:hover .icon-label,.nav-dropdown-bold .nav-column li > a:hover, .nav-dropdown.nav-dropdown-bold > li > a:hover, .nav-dropdown-bold.dark .nav-column li > a:hover, .nav-dropdown.nav-dropdown-bold.dark > li > a:hover, .is-outline:hover, .tagcloud a:hover,.grid-tools a, input[type='submit']:not(.is-form), .box-badge:hover .box-text, input.button.alt,.nav-box > li > a:hover,.nav-box > li.active > a,.nav-pills > li.active > a ,.current-dropdown .cart-icon strong, .cart-icon:hover strong, .nav-line-bottom > li > a:before, .nav-line-grow > li > a:before, .nav-line > li > a:before,.banner, .header-top, .slider-nav-circle .flickity-prev-next-button:hover svg, .slider-nav-circle .flickity-prev-next-button:hover .arrow, .primary.is-outline:hover, .button.primary:not(.is-outline), input[type='submit'].primary, input[type='submit'].primary, input[type='reset'].button, input[type='button'].primary, .badge-inner{background-color: #d89654;}/* Border */.nav-vertical.nav-tabs > li.active > a,.scroll-to-bullets a.active,.nav-pagination > li > .current,.nav-pagination > li > span:hover,.nav-pagination > li > a:hover,.has-hover:hover .badge-outline .badge-inner,.accordion-title.active,.featured-table,.is-outline:hover, .tagcloud a:hover,blockquote, .has-border, .cart-icon strong:after,.cart-icon strong,.blockUI:before, .processing:before,.loading-spin, .slider-nav-circle .flickity-prev-next-button:hover svg, .slider-nav-circle .flickity-prev-next-button:hover .arrow, .primary.is-outline:hover{border-color: #d89654}.nav-tabs > li.active > a{border-top-color: #d89654}.widget_shopping_cart_content .blockUI.blockOverlay:before { border-left-color: #d89654 }.woocommerce-checkout-review-order .blockUI.blockOverlay:before { border-left-color: #d89654 }/* Fill */.slider .flickity-prev-next-button:hover svg,.slider .flickity-prev-next-button:hover .arrow{fill: #d89654;}/* Background Color */[data-icon-label]:after, .secondary.is-underline:hover,.secondary.is-outline:hover,.icon-label,.button.secondary:not(.is-outline),.button.alt:not(.is-outline), .badge-inner.on-sale, .button.checkout, .single_add_to_cart_button, .current .breadcrumb-step{ background-color:rgba(226,43,76,0.33); }[data-text-bg="secondary"]{background-color: rgba(226,43,76,0.33);}/* Color */.secondary.is-underline,.secondary.is-link, .secondary.is-outline,.stars a.active, .star-rating:before, .woocommerce-page .star-rating:before,.star-rating span:before, .color-secondary{color: rgba(226,43,76,0.33)}/* Color !important */[data-text-color="secondary"]{color: rgba(226,43,76,0.33)!important;}/* Border */.secondary.is-outline:hover{border-color:rgba(226,43,76,0.33)}body{font-size: 100%;}body{font-family:"Quicksand", sans-serif}body{font-weight: 0}body{color: #000000}.nav > li > a {font-family:"Quicksand", sans-serif;}.mobile-sidebar-levels-2 .nav > li > ul > li > a {font-family:"Quicksand", sans-serif;}.nav > li > a {font-weight: 700;}.mobile-sidebar-levels-2 .nav > li > ul > li > a {font-weight: 700;}h1,h2,h3,h4,h5,h6,.heading-font, .off-canvas-center .nav-sidebar.nav-vertical > li > a{font-family: "Quicksand", sans-serif;}h1,h2,h3,h4,h5,h6,.heading-font,.banner h1,.banner h2{font-weight: 700;}h1,h2,h3,h4,h5,h6,.heading-font{color: #000000;}.alt-font{font-family: "Dancing Script", sans-serif;}.alt-font{font-weight: 400!important;}.header:not(.transparent) .header-bottom-nav.nav > li > a{color: #000000;}.current .breadcrumb-step, [data-icon-label]:after, .button#place_order,.button.checkout,.checkout-button,.single_add_to_cart_button.button{background-color: #000000!important }@media screen and (min-width: 550px){.products .box-vertical .box-image{min-width: 300px!important;width: 300px!important;}}.footer-2{background-color: #0a0a0a}.absolute-footer, html{background-color: #0a0a0a}.label-new.menu-item > a:after{content:"New";}.label-hot.menu-item > a:after{content:"Hot";}.label-sale.menu-item > a:after{content:"Sale";}.label-popular.menu-item > a:after{content:"Popular";}</style>
          <style type="text/css" id="wp-custom-css">
          .dark .social-icons .button.is-outline {
          border-color: rgb(216 150 84);
