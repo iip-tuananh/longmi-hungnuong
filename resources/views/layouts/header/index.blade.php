@@ -225,7 +225,7 @@
                   </li>
                   <li id="menu-item-599" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-599 menu-item-design-default"><a href="{{route('lienHe')}}" class="nav-top-link">Contact</a></li>
                   <li id="menu-item-532" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-532 menu-item-design-default"><a href="{{route('aboutUs')}}" class="nav-top-link">About Us</a></li>
-                  <li id="menu-item-532" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-532 menu-item-design-default"><a href="{{route('allListBlog')}}" class="nav-top-link">Blog</a></li>
+                  <li id="menu-item-532" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-532 menu-item-design-default"><a href="{{route('allListBlog')}}" class="nav-top-link">Blogs</a></li>
                   <li id="menu-item-532" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-532 menu-item-design-default"><a href="{{route('listService')}}" class="nav-top-link">FAQ</a></li>
                   <li id="menu-item-9198" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-9198 menu-item-design-default has-dropdown">
                         <a href="#" class="nav-top-link">More<i class="icon-angle-down" ></i></a>
@@ -269,3 +269,70 @@
       </div>
    </div>
 </header>
+<div id="main-menu" class="mobile-sidebar no-scrollbar mfp-hide">
+   <div class="sidebar-menu no-scrollbar ">
+      <ul class="nav nav-sidebar nav-vertical nav-uppercase">
+         <li class="header-search-form search-form html relative has-icon">
+               <div class="header-search-form-wrapper">
+               <div class="searchform-wrapper ux-search-box relative form-flat is-normal">
+                  <form role="search" method="post" class="searchform" action="{{route('search_result')}}">
+                     @csrf
+                     <div class="flex-row relative">
+                           <div class="flex-col search-form-categories">
+                           <select class="search_categories resize-select mb-0" name="product_cat">
+                              <option value="" selected='selected'>All</option>
+                              @foreach ($typeProduct as $type)
+                              <option value="{{$type->slug}}">{{languageName($type->name)}}</option>
+                              @endforeach
+                           </select>
+                           </div>
+                           <div class="flex-col flex-grow">
+                           <label class="screen-reader-text" for="woocommerce-product-search-field-1">Search for:</label>
+                           <input type="search" id="woocommerce-product-search-field-1" class="search-field mb-0" placeholder="Search&hellip;" value="" name="keyword" />
+                           </div>
+                           <div class="flex-col">
+                           <button type="submit" value="Search" class="ux-search-submit submit-button secondary button icon mb-0" aria-label="Submit">
+                           <i class="icon-search" ></i>			</button>
+                           </div>
+                     </div>
+                     <div class="live-search-results text-left z-top"></div>
+                  </form>
+               </div>
+               </div>
+         </li>
+         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-67 current_page_item menu-item-286"><a href="{{route('home')}}" aria-current="page">Home</a></li>
+         <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-441">
+               <a href="#">Products</a>
+               <ul class="sub-menu nav-sidebar-ul children">
+                  @foreach ($categoryhome as $cate)
+                     <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-9076">
+                        <a href="{{route('allListProCate', ['cate'=>$cate->slug])}}">{{languageName($cate->name)}}</a>
+                        @if (count($cate->typeCate) > 0)
+                           <ul class="sub-menu nav-sidebar-ul">
+                              @foreach ($cate->typeCate as $type)
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-9081"><a href="{{route('allListProType', ['cate'=>$type->cate_slug, 'type'=>$type->slug])}}">{{languageName($type->name)}}</a></li>
+                              @endforeach
+                           </ul>
+                        @endif
+                     </li>
+                  @endforeach
+               </ul>
+         </li>
+         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-599"><a href="{{route('lienHe')}}">Contact</a></li>
+         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-532"><a href="{{route('aboutUs')}}">About Us</a></li>
+         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-532"><a href="{{route('allListBlog')}}">Blogs</a></li>
+         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-532"><a href="{{route('listService')}}">FAQ</a></li>
+         <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-9198">
+               <a href="#">More</a>
+               <ul class="sub-menu nav-sidebar-ul children">
+                  @foreach ($helpCustomer as $item)
+                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9199"><a href="{{route('pagecontent', ['slug'=>$item->slug])}}">{{$item->title}}</a></li>
+                  @endforeach
+               </ul>
+         </li>
+         <li class="html header-social-icons ml-0">
+               <div class="social-icons follow-icons" ><a href="{{$setting->facebook}}" target="_blank" data-label="Facebook" rel="noopener noreferrer nofollow" class="icon plain facebook tooltip" title="Follow on Facebook" aria-label="Follow on Facebook"><i class="icon-facebook" ></i></a><a href="{{$setting->google}}" target="_blank" rel="noopener noreferrer nofollow" data-label="Instagram" class="icon plain  instagram tooltip" title="Follow on Instagram" aria-label="Follow on Instagram"><i class="icon-instagram" ></i></a><a href="{{$setting->GA}}" target="_blank" data-label="Twitter" rel="noopener noreferrer nofollow" class="icon plain  twitter tooltip" title="Follow on Twitter" aria-label="Follow on Twitter"><i class="icon-twitter" ></i></a><a href="mailto:{{$setting->email}}" data-label="E-mail" rel="nofollow" class="icon plain  email tooltip" title="Send us an email" aria-label="Send us an email"><i class="icon-envelop" ></i></a></div>
+         </li>
+      </ul>
+   </div>
+</div>
