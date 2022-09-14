@@ -466,39 +466,7 @@
          @include('layouts.header.index')
          @yield('content')
          @include('layouts.footer.index')
-         </div>
-         <!-- Instagram Feed JS -->
-         {{-- <script type="text/javascript">
-         var sbiajaxurl = "https://momilash.com/wp-admin/admin-ajax.php";
-         </script> --}}
-         {{-- <div id="login-form-popup" class="lightbox-content mfp-hide">
-         <div class="woocommerce-notices-wrapper"></div>
-         <div class="account-container lightbox-inner">
-            <div class="account-login-inner">
-               <h3 class="uppercase">Login</h3>
-               <form class="woocommerce-form woocommerce-form-login login" method="post">
-                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                     <label for="username">Username or email address&nbsp;<span class="required">*</span></label>
-                     <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username" value="" />					
-                     </p>
-                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                     <label for="password">Password&nbsp;<span class="required">*</span></label>
-                     <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" autocomplete="current-password" />
-                     </p>
-                     <p class="form-row">
-                     <label class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme">
-                     <input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> <span>Remember me</span>
-                     </label>
-                     <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="f78be01fb9" /><input type="hidden" name="_wp_http_referer" value="/" />						<button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">Log in</button>
-                     </p>
-                     <p class="woocommerce-LostPassword lost_password">
-                     <a href="https://momilash.com/my-account/lost-password/">Lost your password?</a>
-                     </p>
-               </form>
-            </div>
-         </div>
-         </div> --}}
-         <!-- Click to Chat - https://holithemes.com/plugins/click-to-chat/  v3.8 -->  
+         </div> 
          <div class="ht-ctc ht-ctc-chat ctc-analytics ctc_wp_desktop style-2  " id="ht-ctc-chat"  
          style="display: none;  position: fixed; bottom: 15px; right: 15px;"   >
          <div class="ht_ctc_style ht_ctc_chat_style">
@@ -522,7 +490,7 @@
          </div>
          <span class="ht_ctc_chat_data" 
          data-no_number=""
-         data-settings="{&quot;number&quot;:&quot;886905314717&quot;,&quot;pre_filled&quot;:&quot;&quot;,&quot;dis_m&quot;:&quot;show&quot;,&quot;dis_d&quot;:&quot;show&quot;,&quot;css&quot;:&quot;display: none; cursor: pointer; z-index: 99999999;&quot;,&quot;pos_d&quot;:&quot;position: fixed; bottom: 15px; right: 15px;&quot;,&quot;pos_m&quot;:&quot;position: fixed; bottom: 15px; right: 15px;&quot;,&quot;schedule&quot;:&quot;no&quot;,&quot;se&quot;:150,&quot;ani&quot;:&quot;no-animations&quot;,&quot;web&quot;:&quot;y&quot;,&quot;ga&quot;:&quot;yes&quot;,&quot;fb&quot;:&quot;yes&quot;}" 
+         data-settings="{&quot;number&quot;:&quot;{{$setting->phone1}}&quot;,&quot;pre_filled&quot;:&quot;&quot;,&quot;dis_m&quot;:&quot;show&quot;,&quot;dis_d&quot;:&quot;show&quot;,&quot;css&quot;:&quot;display: none; cursor: pointer; z-index: 99999999;&quot;,&quot;pos_d&quot;:&quot;position: fixed; bottom: 15px; right: 15px;&quot;,&quot;pos_m&quot;:&quot;position: fixed; bottom: 15px; right: 15px;&quot;,&quot;schedule&quot;:&quot;no&quot;,&quot;se&quot;:150,&quot;ani&quot;:&quot;no-animations&quot;,&quot;web&quot;:&quot;y&quot;,&quot;ga&quot;:&quot;yes&quot;,&quot;fb&quot;:&quot;yes&quot;}" 
          ></span>
          <link rel='stylesheet' id='flatsome-countdown-style-css'  href='{{asset('frontend/css/ux-countdown.css')}}' type='text/css' media='all' />
          <style id='global-styles-inline-css' type='text/css'>
