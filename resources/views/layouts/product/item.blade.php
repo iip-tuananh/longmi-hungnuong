@@ -36,7 +36,7 @@ $discountPrice = $product['price'] - $product['price'] * ($product['discount'] /
                <p class="category uppercase is-smaller no-text-overflow product-cat op-7">
                   {{languageName($product->cate->name)}}		
                </p>
-               <p class="name product-title woocommerce-loop-product__title"><a href="{{route('detailProduct', ['cate'=>$product->cate_slug, 'slug'=>$product->slug])}}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">{{languageName($product->name)}}</a></p>
+               <p class="name product-title woocommerce-loop-product__title" style="height: 41px;"><a href="{{route('detailProduct', ['cate'=>$product->cate_slug, 'slug'=>$product->slug])}}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">{{languageName($product->name)}}</a></p>
                </div>
                <div class="price-wrapper">
                <span class="price">
