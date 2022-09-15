@@ -180,7 +180,7 @@ export default {
       this.errors = [];
       if (this.objData.name == "")
         this.errors.push("Liên kết không được để trống");
-      if (this.objData.image == "") this.errors.push("Vui lòng chọn ảnh");
+      // if (this.objData.image == "") this.errors.push("Vui lòng chọn ảnh");
       if (this.errors.length > 0) {
         this.errors.forEach((value, key) => {
           this.$error(value);
