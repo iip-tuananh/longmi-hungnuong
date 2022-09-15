@@ -59,6 +59,11 @@
                               #banner-1004397502 {
                               padding-top: 250px;
                               }
+                              @media only screen and (max-width: 768px) {
+                                 #banner-1004397502 {
+                                 padding-top: 171px;
+                              }
+                              }
                               #banner-1004397502 .overlay {
                               background-color: rgba(0, 0, 0, 0.06);
                               }
@@ -498,6 +503,11 @@
                <style>
                #banner-832900524 {
                padding-top: 400px;
+               }
+               @media only screen and (max-width: 768px) {
+                  #banner-832900524 {
+                  padding-top: 104px;
+               }
                }
                /* #banner-832900524 .bg.bg-loaded {
                background-image: url(https://momilash.com/wp-content/uploads/2021/12/1000x750.jpg);
