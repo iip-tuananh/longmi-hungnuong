@@ -192,9 +192,9 @@
             </div>
             <div id="text-1259953749" class="text time">
                <h3>CONTACTS</h3>
-               <p><a href="tel:{{$setting->phone1}}">{{$setting->phone1}}</a>
+               <p><a href="https://wa.me/{{$setting->phone1}}">{{$setting->phone1}}</a>
                <p>
-               <p><a href="tel:{{$setting->phone2}}">{{$setting->phone2}}</a>
+               <p><a href="https://wa.me/{{$setting->phone2}}">{{$setting->phone2}}</a>
                <p>
                <p><a href="mailto:{{$setting->email}}">{{$setting->email}}</a></p>
             </div>
