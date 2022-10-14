@@ -472,8 +472,19 @@
                <div class="hotline-phone-ring-circle"></div>
                <div class="hotline-phone-ring-circle-fill"></div>
                <div class="hotline-phone-ring-img-circle">
-               <a href="tel:{{$setting->phone1}}" class="pps-btn-img" target="_blank">
-               <img src="{{url('frontend/images/icon-call.png')}}" alt="Call" width="50" loading="lazy">
+               <a href="https://wa.me/{{$setting->phone1}}" class="pps-btn-img" target="_blank">
+               <img src="{{url('frontend/images/whatsapp.png')}}" alt="Call" width="50" loading="lazy">
+               </a>
+               </div>
+            </div>
+         </div>
+         <div class="hotline-phone-ring-wrap2">
+            <div class="hotline-phone-ring">
+               <div class="hotline-phone-ring-circle"></div>
+               <div class="hotline-phone-ring-circle-fill"></div>
+               <div class="hotline-phone-ring-img-circle">
+               <a href="https://zalo.me/{{$setting->phone1}}" class="pps-btn-img" target="_blank">
+               <img src="{{url('frontend/images/zalo.png')}}" alt="Call" width="50" loading="lazy">
                </a>
                </div>
             </div>

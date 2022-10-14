@@ -28,7 +28,7 @@ $discountPrice = $product['price'] - $product['price'] * ($product['discount'] /
                <div class="image-tools is-small hide-for-small bottom left show-on-hover">
                </div>
                <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
-               <a class="quick-view" data-prod="659" href="#quick-view">Quick View</a>			
+               <a class="quick-view" data-prod="659" href="{{route('detailProduct', ['cate'=>$product->cate_slug, 'slug'=>$product->slug])}}">Quick View</a>			
                </div>
          </div>
          <div class="box-text box-text-products">
@@ -46,7 +46,7 @@ $discountPrice = $product['price'] - $product['price'] * ($product['discount'] /
                   @elseif($product->price > 0 && $product->discount == 0)
                      <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>{{$product->price}}</bdi></span>
                   @else
-                     <span class="woocommerce-Price-amount amount"><a href="tel:{{$setting->phone1}}">Contact</a></span>
+                     <span class="woocommerce-Price-amount amount"><a href="https://wa.me/{{$setting->phone1}}">Contact</a></span>
                   @endif
                </span>
                </div>
