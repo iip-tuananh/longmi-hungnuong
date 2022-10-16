@@ -21,11 +21,11 @@
    -webkit-line-clamp: 2; 
    -webkit-box-orient: vertical;
 }
-.paginate ul lu {
+.paginate ul li {
    list-style-type: none;
 }
 .pagination {
-   display: inline-block;
+   display: flex;
  }
  
  .pagination a {
@@ -38,7 +38,7 @@
    margin: 0 4px;
  }
  
- .pagination a.active {
+ .pagination li.active {
    background-color: #000;
    color: white;
    border: 1px solid #4CAF50;
