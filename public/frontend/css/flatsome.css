@@ -46,3 +46,6 @@
  }
  
  .pagination a:hover:not(.active) {background-color: #ddd;}
+ .pagination .disabled {
+   display: none;
+ }
