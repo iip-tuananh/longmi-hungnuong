@@ -73,6 +73,9 @@ List {{$title}}
                @endforeach
             </div>
             <!-- row -->
+            <div class="row paginate">
+               {{$list->links()}}
+            </div>
          </div>
          <!-- shop container -->		
       </div>
