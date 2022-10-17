@@ -55,7 +55,7 @@ $priceDiscount = $product->price - $product->price * ($product->discount / 100);
                               "pageDots": false,
                               "rightToLeft": false       }'>
                               @foreach ($imgs as $img)
-                              <div data-thumb="{{$img}}" class="woocommerce-product-gallery__image slide first"><a data-src="{{$img}}" data-fancybox="gallery"><img width="600" height="600" src="{{$img}}" class="wp-post-image skip-lazy wvs-attachment-image" alt="Flat lash" loading="lazy" title="flat lash" data-caption="" data-src="{{$img}}" data-large_image="{{$img}}" data-large_image_width="600" data-large_image_height="600" srcset="{{$img}} 600w, {{$img}} 400w, {{$img}} 280w, {{$img}} 300w, {{$img}} 100w" sizes="(max-width: 600px) 100vw, 600px" /></a></div>
+                              <div data-thumb="{{$img}}" class="woocommerce-product-gallery__image slide first"><a data-src="{{$img}}" data-fancybox="gallery"><img width="600" height="600" src="{{$img}}" class="wp-post-image skip-lazy wvs-attachment-image" alt="{{languageName($product->name)}}" loading="lazy" title="{{languageName($product->name)}}" data-caption="" data-src="{{$img}}" data-large_image="{{$img}}" data-large_image_width="600" data-large_image_height="600" srcset="{{$img}} 600w, {{$img}} 400w, {{$img}} 280w, {{$img}} 300w, {{$img}} 100w" sizes="(max-width: 600px) 100vw, 600px" /></a></div>
                               @endforeach
                            </figure>
                         </div>
@@ -74,11 +74,11 @@ $priceDiscount = $product->price - $product->price * ($product->discount / 100);
                            }'>
                            <div class="col is-nav-selected first">
                               <a>
-                              <img src="{{$imgs[0]}}" alt="Flat lash" width="300" height="300" class="attachment-woocommerce_thumbnail" loading="lazy" />				</a>
+                              <img src="{{$imgs[0]}}" alt="{{languageName($product->name)}}" width="300" height="300" class="attachment-woocommerce_thumbnail" loading="lazy" />				</a>
                            </div>
                            @foreach ($imgs as $key=>$img)
                               @if ($key != 0)
-                              <div class="col"><a><img src="{{$img}}" alt="flat lash" width="300" height="300"  class="attachment-woocommerce_thumbnail" loading="lazy" /></a></div>
+                              <div class="col"><a><img src="{{$img}}" alt="{{languageName($product->name)}}" width="300" height="300"  class="attachment-woocommerce_thumbnail" loading="lazy" /></a></div>
                               @endif
                            @endforeach
                         </div>
