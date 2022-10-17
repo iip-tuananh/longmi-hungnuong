@@ -25,8 +25,8 @@ class HomeController extends Controller
         $data['video'] = Video::where(['status'=>1])->first();
         $data['aboutUs'] = PageContent::where(['status'=>1, 'type'=>'ve-chung-toi', 'language'=>'vi'])->first();
         $data['reviewCus'] = ReviewCus::where('status',1)->get(['name','content','avatar']);
-        $data['bestsellerProHome'] = Product::where(['status'=>1, 'discountStatus'=>1])->limit(12)->get(['id','category','name','discount','price','images','slug','cate_slug','type_slug']);
-        $data['discountProHome'] = Product::where(['status'=>1])->where('discount', '>', 0)->limit(12)->get(['id','category','name','discount','price','images','slug','cate_slug','type_slug']);
+        $data['bestsellerProHome'] = Product::where(['status'=>1, 'discountStatus'=>1])->limit(20)->orderBy('id','desc')->get(['id','category','name','discount','price','images','slug','cate_slug','type_slug']);
+        $data['discountProHome'] = Product::where(['status'=>1])->where('discount', '>', 0)->limit(20)->orderBy('id','desc')->get(['id','category','name','discount','price','images','slug','cate_slug','type_slug']);
         // $data['homeProduct'] = Product::where(['status'=>1, 'discountStatus'=>1])->limit(12)->get(['id','category','name','discount','price','images','slug','cate_slug','type_slug']);
         $data['homeBlog'] = Blog::where(['status'=>1, 'home_status'=>1])->orderBy('id', 'desc')->limit(8)->get(['id','title','image','slug','category', 'description']);
         return view('home',$data);
