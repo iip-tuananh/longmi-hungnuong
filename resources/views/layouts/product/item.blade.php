@@ -11,10 +11,10 @@ $discountPrice = $product['price'] - $product['price'] * ($product['discount'] /
                <div class="image-fade_in_back">
                <a href="{{route('detailProduct', ['cate'=>$product->cate_slug, 'slug'=>$product->slug])}}" aria-label="{{languageName($product->name)}}">
                   @if (count($imgs)>1)
-                     <img width="300" height="300" src="{{$imgs[0]}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wvs-attachment-image" alt="silk lash momilash" loading="lazy" srcset="{{$imgs[0]}} 300w, {{$imgs[0]}} 400w, {{$imgs[0]}} 280w, {{$imgs[0]}} 600w, {{$imgs[0]}} 100w, {{$imgs[0]}} 750w" sizes="(max-width: 300px) 100vw, 300px" />
+                     <img width="300" height="300" src="{{$imgs[0]}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wvs-attachment-image" alt="{{languageName($product->name)}}" loading="lazy" srcset="{{$imgs[0]}} 300w, {{$imgs[0]}} 400w, {{$imgs[0]}} 280w, {{$imgs[0]}} 600w, {{$imgs[0]}} 100w, {{$imgs[0]}} 750w" sizes="(max-width: 300px) 100vw, 300px" />
                      <img width="300" height="300" src="{{$imgs[1]}}" class="show-on-hover absolute fill hide-for-small back-image wvs-attachment-image" alt="silk lash" loading="lazy" srcset="{{$imgs[1]}} 300w, {{$imgs[1]}} 280w, {{$imgs[1]}} 100w" sizes="(max-width: 300px) 100vw, 300px" />
                   @else
-                     <img width="300" height="300" src="{{$imgs[0]}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wvs-attachment-image" alt="silk lash momilash" loading="lazy" srcset="{{$imgs[0]}} 300w, {{$imgs[0]}} 400w, {{$imgs[0]}} 280w, {{$imgs[0]}} 600w, {{$imgs[0]}} 100w, {{$imgs[0]}} 750w" sizes="(max-width: 300px) 100vw, 300px" />
+                     <img width="300" height="300" src="{{$imgs[0]}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wvs-attachment-image" alt="{{languageName($product->name)}}" loading="lazy" srcset="{{$imgs[0]}} 300w, {{$imgs[0]}} 400w, {{$imgs[0]}} 280w, {{$imgs[0]}} 600w, {{$imgs[0]}} 100w, {{$imgs[0]}} 750w" sizes="(max-width: 300px) 100vw, 300px" />
                   @endif
                </a>
                </div>
